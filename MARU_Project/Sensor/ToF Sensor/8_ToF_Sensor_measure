@@ -1,7 +1,6 @@
 #include <Wire.h>
 #include <VL53L0X.h>
 
-
 VL53L0X* sensor = new VL53L0X;
 VL53L0X* sensor1 = new VL53L0X;
 VL53L0X* sensor2 = new VL53L0X;
@@ -11,6 +10,7 @@ VL53L0X* sensor5 = new VL53L0X;
 VL53L0X* sensor6 = new VL53L0X;
 VL53L0X* sensor7 = new VL53L0X;
 VL53L0X* sensor8 = new VL53L0X;
+
 
 int a;
 int b;
@@ -24,31 +24,17 @@ int h;
 void setup()
 {
 
-  
-  pinMode(9, OUTPUT);
-  pinMode(8, OUTPUT);
-  pinMode(7, OUTPUT);
-  pinMode(6, OUTPUT);
-  pinMode(5, OUTPUT);
-  pinMode(4, OUTPUT);
-  pinMode(3, OUTPUT);
-  pinMode(2, OUTPUT);
-  digitalWrite(2, LOW);
-  digitalWrite(3, LOW);
-  digitalWrite(4, LOW);
-  digitalWrite(5, LOW);
-  digitalWrite(6, LOW);
-  digitalWrite(7, LOW);
-  digitalWrite(8, LOW);
-  digitalWrite(9, LOW);
-
+  for(int i = 2; i<=9;i++){
+    pinMode(i,OUTPUT);
+    digitalWrite(i,LOW);
+  }
   delay(500);
   Wire.begin();
 
 
   Serial.begin (9600);
 
-//////////////////////
+
   digitalWrite(2, HIGH);
   delay(150);
   Serial.println("00");
