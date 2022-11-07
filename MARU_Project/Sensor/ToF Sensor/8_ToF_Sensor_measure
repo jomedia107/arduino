@@ -1,8 +1,10 @@
 #include <Wire.h>
 #include <VL53L0X.h>
 
+void getDistance();
+void setAddress();
+
 VL53L0X* sensor = new VL53L0X;
-VL53L0X* sensor1 = new VL53L0X;
 VL53L0X* sensor2 = new VL53L0X;
 VL53L0X* sensor3 = new VL53L0X;
 VL53L0X* sensor4 = new VL53L0X;
@@ -12,19 +14,56 @@ VL53L0X* sensor7 = new VL53L0X;
 VL53L0X* sensor8 = new VL53L0X;
 
 
-int a;
-int b;
-int c;
-int d;
-int e;
-int f;
-int g;
-int h;
+int a,b,c,d,e,f,g,h;
 
 void setup()
 {
 
-  for(int i = 2; i<=9;i++){
+setAddress();
+}
+
+
+
+void loop()
+{
+  
+getDistance();
+
+}
+
+
+void getDistance(){
+
+  a=sensor->readRangeContinuousMillimeters();
+  Serial.print(a);
+  Serial.print("  ");
+  b=sensor2->readRangeContinuousMillimeters();
+  Serial.print(b);
+  Serial.print("  ");
+  c=sensor3->readRangeContinuousMillimeters();
+  Serial.print(c);
+  Serial.print("  ");
+  d=sensor4->readRangeContinuousMillimeters();
+  Serial.print(d);
+  Serial.print("  ");
+  e=sensor5->readRangeContinuousMillimeters();
+  Serial.print(e);
+  Serial.print("  ");
+  f=sensor6->readRangeContinuousMillimeters();
+  Serial.print(f);
+  Serial.print("  ");
+  g=sensor7->readRangeContinuousMillimeters();
+  Serial.print(g);
+  Serial.print("  ");
+  h=sensor8->readRangeContinuousMillimeters();
+  Serial.println(h);
+
+  delay(100);
+
+}
+
+void setAddress(){
+for(int i = 2; i<=9;i++){
     pinMode(i,OUTPUT);
     digitalWrite(i,LOW);
   }
@@ -122,36 +161,5 @@ sensor5->startContinuous();
 sensor6->startContinuous();
 sensor7->startContinuous();
 sensor8->startContinuous();
-
-}
-
-void loop()
-{
-  
-  a=sensor->readRangeContinuousMillimeters();
-  Serial.print(a);
-  Serial.print("  ");
-  b=sensor2->readRangeContinuousMillimeters();
-  Serial.print(b);
-  Serial.print("  ");
-  c=sensor3->readRangeContinuousMillimeters();
-  Serial.print(c);
-  Serial.print("  ");
-  d=sensor4->readRangeContinuousMillimeters();
-  Serial.print(d);
-  Serial.print("  ");
-  e=sensor5->readRangeContinuousMillimeters();
-  Serial.print(e);
-  Serial.print("  ");
-  f=sensor6->readRangeContinuousMillimeters();
-  Serial.print(f);
-  Serial.print("  ");
-  g=sensor7->readRangeContinuousMillimeters();
-  Serial.print(g);
-  Serial.print("  ");
-  h=sensor8->readRangeContinuousMillimeters();
-  Serial.println(h);
-
-  delay(100);
 }
 
