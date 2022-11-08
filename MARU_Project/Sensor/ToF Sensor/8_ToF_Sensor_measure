@@ -15,50 +15,91 @@ VL53L0X* sensor8 = new VL53L0X;
 
 
 int a,b,c,d,e,f,g,h;
+int sum_a,sum_b,sum_c,sum_d,sum_e,sum_f,sum_g,sum_h;
+float sensitivity = 0.4;
 
 void setup()
 {
 
 setAddress();
+
+while(true){
+
+getDistance();
+
+int Kwidth = 160;
+int Pwidth = 20;
+int countLeg = 0;
+
+int SumOfDistance = (sum_a + sum_b + sum_c + sum_d + sum_e + sum_f + sum_g + sum_h)/8;
+
+if(SumOfDistance<((3*(Kwidth))-4*(Pwidth))){
+  countLeg = 4;
+}
+else if(SumOfDistance<((3*(Kwidth))-3*(Pwidth))){
+ countLeg = 3;
+}
+else if(SumOfDistance<((3*(Kwidth))-2*(Pwidth))){
+ countLeg = 2;
+}
+else if(SumOfDistance<((3*(Kwidth))-(Pwidth))){
+ countLeg = 1;
+}
+Serial.println(" ");
+Serial.print(countLeg);
+Serial.println("명이다 이자식들아!!!!!!!");
+
+delay(500);
 }
 
 
 
+}
 void loop()
 {
   
-getDistance();
+
 
 }
 
 
 void getDistance(){
 
+
+
   a=sensor->readRangeContinuousMillimeters();
-  Serial.print(a);
+  sum_a=(1-sensitivity)*sum_a + sensitivity*a;
+  Serial.print(sum_a);
   Serial.print("  ");
   b=sensor2->readRangeContinuousMillimeters();
-  Serial.print(b);
+  sum_b=(1-sensitivity)*sum_b + sensitivity*b;
+  Serial.print(sum_b);
   Serial.print("  ");
   c=sensor3->readRangeContinuousMillimeters();
-  Serial.print(c);
+  sum_c=(1-sensitivity)*sum_c + sensitivity*c;
+  Serial.print(sum_c);
   Serial.print("  ");
   d=sensor4->readRangeContinuousMillimeters();
-  Serial.print(d);
+  sum_d=(1-sensitivity)*sum_d + sensitivity*d;
+  Serial.print(sum_d);
   Serial.print("  ");
   e=sensor5->readRangeContinuousMillimeters();
-  Serial.print(e);
+  sum_e=(1-sensitivity)*sum_e + sensitivity*e;
+  Serial.print(sum_e);
   Serial.print("  ");
   f=sensor6->readRangeContinuousMillimeters();
-  Serial.print(f);
+  sum_f=(1-sensitivity)*sum_f + sensitivity*f;
+  Serial.print(sum_f);
   Serial.print("  ");
   g=sensor7->readRangeContinuousMillimeters();
-  Serial.print(g);
+  sum_g=(1-sensitivity)*sum_g + sensitivity*g;
+  Serial.print(sum_g);
   Serial.print("  ");
   h=sensor8->readRangeContinuousMillimeters();
-  Serial.println(h);
+  sum_h=(1-sensitivity)*sum_h + sensitivity*h;
+  Serial.println(sum_h);
 
-  delay(100);
+  
 
 }
 
