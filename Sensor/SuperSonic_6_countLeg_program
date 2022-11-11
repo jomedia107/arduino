@@ -16,6 +16,10 @@
 
 #define TRIG6 3 //TRIG 핀 설정 (초음파 보내는 핀)
 #define ECHO6 2 //ECHO 핀 설정 (초음파 받는 핀)
+
+
+
+
 long sum_dArr[6]={30,30,30,30,30,30};
 
 void setup() {
@@ -32,7 +36,6 @@ for(int i = 1; i<=6;i++){
 void loop()
 
 {
-  long t1,d1,t2,d2,t3,d3,t4,d4,t5,d5,t6,d6;
 
 long tArr[6];
 long dArr[6];
@@ -83,8 +86,8 @@ else if(SumOfDistance<((3*(Kwidth))-(Pwidth))){
 }
 Serial.println(SumOfDistance);
 Serial.println(" ");
-Serial.print(countLeg);
-Serial.println("명이다 이자식들아!!!!!!!");
+Serial.print("Number of Leg: ");
+Serial.println(countLeg);
 
 delay(100);
 
