@@ -1,0 +1,99 @@
+
+
+
+#define TRIG1 33 //TRIG 핀 설정 (초음파 보내는 핀)
+#define ECHO1 32 //ECHO 핀 설정 (초음파 받는 핀)
+
+#define TRIG2 31 //TRIG 핀 설정 (초음파 보내는 핀)
+#define ECHO2 30 //ECHO 핀 설정 (초음파 받는 핀)
+
+#define TRIG3 29 //TRIG 핀 설정 (초음파 보내는 핀)
+#define ECHO3 28 //ECHO 핀 설정 (초음파 받는 핀)
+
+#define TRIG4 27 //TRIG 핀 설정 (초음파 보내는 핀)
+#define ECHO4 26 //ECHO 핀 설정 (초음파 받는 핀)
+
+#define TRIG5 25 //TRIG 핀 설정 (초음파 보내는 핀)
+#define ECHO5 24 //ECHO 핀 설정 (초음파 받는 핀)
+
+#define TRIG6 23 //TRIG 핀 설정 (초음파 보내는 핀)
+#define ECHO6 22 //ECHO 핀 설정 (초음파 받는 핀)
+
+
+
+
+long sum_dArr[6]={30,30,30,30,30,30};
+
+void setup() {
+  Serial.begin(9600); 
+for(int i = 1; i<=6;i++){
+ pinMode(20+(2*i+1), OUTPUT);
+  pinMode(20+(2*i), INPUT);
+
+}
+ 
+
+}
+
+void loop()
+
+{
+
+long tArr[6];
+long dArr[6];
+
+
+for(int i= 1;i<=6;i++){
+
+  digitalWrite(20+(2*i+1), LOW);
+  delayMicroseconds(2);
+  digitalWrite(20+(2*i+1), HIGH);
+  delayMicroseconds(10);
+  digitalWrite(20+(2*i+1), LOW);
+  tArr[i-1]=pulseIn (20+(2*i), HIGH);
+  dArr[i-1]=tArr[i-1] * 17 / 1000;
+
+  sum_dArr[i-1]=0.9*sum_dArr[i-1] + 0.1*dArr[i-1];
+  Serial.print(sum_dArr[i-1]);
+  Serial.print(" ");
+  delay(10);
+  
+}
+Serial.println(" ");
+  
+
+int Kwidth = 40;
+int Pwidth = 20;
+int countLeg = 0;
+long SumOfDistance=0;
+
+
+
+for(int i = 0; i<=6;i++){
+
+  SumOfDistance += sum_dArr[i];
+}
+
+
+
+if(SumOfDistance<((3*(Kwidth))-4*(Pwidth))){
+  countLeg = 4;
+}
+else if(SumOfDistance<((3*(Kwidth))-3*(Pwidth))){
+ countLeg = 3;
+}
+else if(SumOfDistance<((3*(Kwidth))-2*(Pwidth))){
+ countLeg = 2;
+}
+else if(SumOfDistance<((3*(Kwidth))-(Pwidth))){
+ countLeg = 1;
+}
+Serial.println(SumOfDistance);
+Serial.println(" ");
+Serial.print("Number of Leg: ");
+Serial.println(countLeg);
+
+delay(1000);
+
+
+}
